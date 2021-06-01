@@ -10,13 +10,13 @@
 }
 
 # MOV r, A
-:MOV DREG_BYTE, A is SKIP_CHECK & op_h=0x7 & A & DREG_BYTE & dreg_byte!=1 {
+:MOV DREG_BYTE, A is SKIP_CHECK & op_h=0x7 & A & DREG_BYTE & dreg_byte!=1 & dreg_byte<=7 {
     build SKIP_CHECK;
     DREG_BYTE = A;
 }
 
 # MOV A, r
-:MOV A, DREG_BYTE is SKIP_CHECK & op_h=0x6 & A & DREG_BYTE & dreg_byte!=1 {
+:MOV A, DREG_BYTE is SKIP_CHECK & op_h=0x6 & A & DREG_BYTE & dreg_byte!=1 & dreg_byte<=7 {
     build SKIP_CHECK;
     A = DREG_BYTE;
 }
@@ -589,6 +589,12 @@
 :MOVW AddrWordOffsetCW, AX is SKIP_CHECK & opcode=0x68 & AX; AddrWordOffsetCW {
     build SKIP_CHECK;
     AddrWordOffsetCW = AX;
+}
+
+# MOVW word[BC], AX
+:MOVW AddrWordOffsetBCW, AX is SKIP_CHECK & opcode=0x78 & AX; AddrWordOffsetBCW {
+    build SKIP_CHECK;
+    AddrWordOffsetBCW = AX;
 }
 
 # MOVW AX, word[BC]
