@@ -36,4 +36,7 @@
   <volatile outputop="reg_write" inputop="reg_read">
     <range space="ram" first="0xe0000" last="0xe00ff"/> <!-- xcbase xdbase -->
   </volatile>
+  <default_memory_blocks>
+    <memory_block name="iram" start_address="0xf0000" length="0x10000" initialized="false" mode="rw"/>
+  </default_memory_blocks>
 </processor_spec>

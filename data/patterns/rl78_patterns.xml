@@ -30,6 +30,15 @@
       <funcstart/>
     </postpatterns>
   </patternpairs>
+   <patternpairs totalbits="24" postbits="8">
+    <prepatterns>
+      <data>0xc6 0xd7</data> <!-- POP HL; RET; -->
+    </prepatterns>
+    <postpatterns>
+      <data>0xc7</data> <!-- PUSH HL;-->
+      <funcstart/>
+    </postpatterns>
+  </patternpairs>
   <patternpairs totalbits="32" postbits="24">
     <prepatterns>
       <data>0xd7</data> <!-- RET; -->

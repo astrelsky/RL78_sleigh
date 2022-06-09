@@ -127,6 +127,18 @@ SREG2_BYTE:^D is D & sreg2_byte=5 { export D; }
 SREG2_BYTE:^L is L & sreg2_byte=6 { export L; }
 SREG2_BYTE:^H is H & sreg2_byte=7 { export H; }
 
+is_sfr2: is bit16_8_9=0 & a16_bits_10_15=0 {}
+is_sfr2: is bit16_8_9=1 & a16_bits_10_15=0 {}
+is_sfr2: is bit16_8_9=2 & a16_bits_10_15=0 {}
+
+sfr_reg_byte: ext_sfr is ext_sfr & is_sfr2 {
+    export ext_sfr;
+}
+
+sfr_reg_word: ext_sfrw is ext_sfrw & is_sfr2 & bit16_0=0 {
+    export ext_sfrw;
+}
+
 u8: "#"data is data {
     export *[const]:1 data;
 }
@@ -149,19 +161,7 @@ uaddr16: uaddr16_data is uaddr16_data { export *[const]:2 uaddr16_data; }
 
 direct_addr_val: is uaddr16 { dst:3 = segment(0xf:1, uaddr16); export dst; }
 
-#addr16: "!"uaddr16 is es_prefix=0 & uaddr16 & direct_addr_val {
-#    export *[ram]:1 direct_addr_val;
-#}
-
-addr16: ext_sfr is es_prefix=0 & ext_sfr {
-    export ext_sfr;
-}
-
-addr16: a16_sfr_reg is es_prefix=0 & a16_sfr_reg & a16_sfr_offset=0x1fff {
-    export a16_sfr_reg;
-}
-
-addr16: uaddr16 is es_prefix=0 & uaddr16 & (a16_bit7=1 | a16_bit4_6!=0) & direct_addr_val {
+addr16: uaddr16 is es_prefix=0 & uaddr16 & direct_addr_val {
     export *[ram]:1 direct_addr_val;
 }
 
@@ -171,15 +171,7 @@ addr16: ES:"!"uaddr16 is es_prefix=1 & uaddr16 & ES {
     export *[ram]:1 loc;
 }
 
-#addr16w: "!"uaddr16 is es_prefix=0 & uaddr16 & direct_addr_val {
-#    export *[ram]:2 direct_addr_val;
-#}
-
-addr16w: ext_sfrw is es_prefix=0 & ext_sfrw & bit16_0=0 {
-    export ext_sfrw;
-}
-
-addr16w: uaddr16 is uaddr16 & (a16_bit7=1 | a16_bit4_6!=0) & direct_addr_val & bit16_0=0 {
+addr16w: uaddr16 is uaddr16 & direct_addr_val & bit16_0=0 {
     export *[ram]:2 direct_addr_val;
 }
 
@@ -191,6 +183,14 @@ addr16w: ES:"!"uaddr16 is es_prefix=1 & uaddr16 & ES & bit16_0=0 {
     local loc:3;
     direct_addr_es(ES, uaddr16:2, loc);
     export *[ram]:2 loc;
+}
+
+addr16: sfr_reg_byte is es_prefix=0 & sfr_reg_byte {
+    export sfr_reg_byte;
+}
+
+addr16w: sfr_reg_word is es_prefix=0 & sfr_reg_word {
+    export sfr_reg_word;
 }
 
 addr20: "!!"uaddr20 is uaddr20 {
