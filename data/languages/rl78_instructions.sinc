@@ -1469,76 +1469,44 @@
     if (!($(Z) | $(CY))) goto jdisp8;
 }
 
-SKIP_TARGET: loc is skip_mode=1 [ loc = inst_next + 1; ] {
-    export *[ram]:3 loc;
-}
-
-SKIP_TARGET: loc is skip_mode=2 [ loc = inst_next + 2; ] {
-    export *[ram]:3 loc;
-}
-
-SKIP_TARGET: loc is skip_mode=3 [ loc = inst_next + 3; ] {
-    export *[ram]:3 loc;
-}
-
-SKIP_TARGET: loc is skip_mode=4 [ loc = inst_next + 4; ] {
-    export *[ram]:3 loc;
-}
-
-SKIP_TARGET: loc is skip_mode=5 [ loc = inst_next + 5; ] {
-    export *[ram]:3 loc;
-}
-
 #
 # Table 30/30
 #
 
 # SKC
-:SKC is SKIP_TARGET & opcode=0x61; opcode=0xC8 {
-    if ($(CY)) goto <skip>;
-    goto inst_next;
-    <skip>
-    goto SKIP_TARGET;
+:SKC is opcode=0x61; opcode=0xC8 {
+    if ($(CY)) goto inst_next;
+    delayslot(1);
 }
 
 # SKNC
-:SKNC is SKIP_TARGET & opcode=0x61; opcode=0xD8 {
-    if (!$(CY)) goto <skip>;
-    goto inst_next;
-    <skip>
-    goto SKIP_TARGET;
+:SKNC is opcode=0x61; opcode=0xD8 {
+    if (!$(CY)) goto inst_next;
+    delayslot(1);
 }
 
 # SKZ
-:SKZ is SKIP_TARGET & opcode=0x61; opcode=0xE8 {
-    if ($(Z)) goto <skip>;
-    goto inst_next;
-    <skip>
-    goto SKIP_TARGET;
+:SKZ is opcode=0x61; opcode=0xE8 {
+    if ($(Z)) goto inst_next;
+    delayslot(1);
 }
 
 # SKNZ
-:SKNZ is SKIP_TARGET & opcode=0x61; opcode=0xF8 {
-    if (!$(Z)) goto <skip>;
-    goto inst_next;
-    <skip>
-    goto SKIP_TARGET;
+:SKNZ is opcode=0x61; opcode=0xF8 {
+    if (!$(Z)) goto inst_next;
+    delayslot(1);
 }
 
 # SKH
-:SKH is SKIP_TARGET & opcode=0x61; opcode=0xE3 {
-    if ($(Z) | $(CY)) goto <skip>;
-    goto inst_next;
-    <skip>
-    goto SKIP_TARGET;
+:SKH is opcode=0x61; opcode=0xE3 {
+    if ($(Z) | $(CY)) goto inst_next;
+    delayslot(1);
 }
 
 # SKNH
-:SKNH is SKIP_TARGET & opcode=0x61; opcode=0xF3 {
-    if (!($(Z) | $(CY))) goto <skip>;
-    goto inst_next;
-    <skip>
-    goto SKIP_TARGET;
+:SKNH is opcode=0x61; opcode=0xF3 {
+    if (!($(Z) | $(CY))) goto inst_next;
+    delayslot(1);
 }
 
 # SEL RBn
