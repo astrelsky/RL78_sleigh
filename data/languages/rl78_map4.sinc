@@ -1,3 +1,4 @@
+with : pre_skip=1 {
 # BTCLR saddr.n, $addr20
 :BTCLR saddr"."0, jdisp8 is opcode=0x31; op_l=0x0 & op_h=0x0; saddr; jdisp8 {
     if (saddr & 0x1) goto <clear>;
@@ -970,4 +971,5 @@ AXBC: AX is op_l=0xD & AX { export AX; }
 :SARW AX, 15 is opcode=0x31 & AX; op_l=0xF & op_h=0xF {
     CY = (AX & 0x4000) != 0;
     AX = AX s>> 15;
+}
 }

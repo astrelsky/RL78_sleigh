@@ -26,7 +26,7 @@ macro inst_inc(dst) {
 }
 
 macro inst_dec(dst) {
-    aux_borrow(dst, 1);
+    AC = (dst & 0xf) == 0;
     dst = dst - 1;
     Z = dst == 0;
 }

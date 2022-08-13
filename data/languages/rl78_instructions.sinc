@@ -1,3 +1,4 @@
+with : pre_skip=1 {
 #
 # Table 1/30
 #
@@ -1144,8 +1145,4 @@
 
 # NOP
 :NOP is opcode=0x00 {}
-
-# PREFIX
-:^instruction is es_prefix=0 & opcode=0x11; epsilon ... & instruction [ es_prefix=1; ] {
-    build instruction;
 }

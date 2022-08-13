@@ -1,0 +1,17 @@
+
+# PREFIX
+:^instruction is pre_skip=0 & opcode=0x11; epsilon ... & instruction [ pre_skip=1; es_prefix=1; ] {
+	tmp = skipflag;
+	skipflag = 0;
+	if (tmp) goto <skip>;
+	build instruction;
+	<skip>
+}
+
+:^instruction is pre_skip=0 & instruction [ pre_skip=1; ] {
+	tmp = skipflag;
+	skipflag = 0;
+	if (tmp) goto <skip>;
+	build instruction;
+	<skip>
+}
