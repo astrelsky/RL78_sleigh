@@ -39,7 +39,7 @@ macro inst_add(dst, src) {
 }
 
 macro inst_addc(dst, src) {
-    tmp = src + CY;
+    local tmp = src + CY;
     inst_add(dst, tmp);
 }
 
@@ -51,7 +51,7 @@ macro inst_sub(dst, src) {
 }
 
 macro inst_subc(dst, src) {
-    tmp = src - CY;
+    local tmp = src - CY;
     inst_sub(dst, tmp);
 }
 
@@ -150,7 +150,7 @@ macro call_indirect(target) {
 }
 
 macro callt(tbl) {
-    addr = *[ram]:2 tbl;
-    dst:3 = zext(addr);
+    local addr = *[ram]:2 tbl;
+    local dst:3 = zext(addr);
     call_indirect(dst);
 }

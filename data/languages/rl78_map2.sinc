@@ -277,7 +277,7 @@
 }
 
 :CALL AX is opcode=0x61 & AX & CS; opcode=0xCA {
-    dst:3 = segment(CS, AX);
+    local dst:3 = segment(CS, AX);
     call_indirect(dst);
 }
 
@@ -354,19 +354,19 @@
 }
 
 :CALL BC is opcode=0x61 & BC & CS; opcode=0xDA {
-    dst:3 = segment(CS, BC);
+    local dst:3 = segment(CS, BC);
     call_indirect(dst);
 }
 
 :ROR A, 1 is opcode=0x61 & A; opcode=0xDB {
-    b:1 = A[0, 1];
+    local b:1 = A[0, 1];
     A = A >> 1;
     A[7, 1] = b;
     CY = b;
 }
 
 :ROLC A, 1 is opcode=0x61 & A; opcode=0xDC {
-    b:1 = A[7, 1];
+    local b:1 = A[7, 1];
     A = A << 1;
     A[0, 1] = CY;
     CY = b;
@@ -439,12 +439,12 @@
 }
 
 :CALL DE is opcode=0x61 & DE & CS; opcode=0xEA {
-    dst:3 = segment(CS, DE);
+    local dst:3 = segment(CS, DE);
     call_indirect(dst);
 }
 
 :ROL A, 1 is opcode=0x61 & A; opcode=0xEB {
-    b:1 = A[7, 1];
+    local b:1 = A[7, 1];
     A = A << 1;
     A[0, 1] = b;
     CY = b;
@@ -469,7 +469,7 @@
 :HALT is opcode=0x61; opcode=0xED { halt(); }
 
 :ROLWC AX, 1 is opcode=0x61 & AX; opcode=0xEE {
-    b:1 = AX[15, 1];
+    local b:1 = AX[15, 1];
     AX = AX << 1;
     AX = AX | zext(CY);
     CY = b;
@@ -520,12 +520,12 @@
 }
 
 :CALL HL is opcode=0x61 & HL & CS; opcode=0xFA {
-    dst:3 = segment(CS, HL);
+    local dst:3 = segment(CS, HL);
     call_indirect(dst);
 }
 
 :RORC A, 1 is opcode=0x61 & A; opcode=0xFB {
-    b:1 = A[0, 1];
+    local b:1 = A[0, 1];
     A = A >> 1;
     A[7, 1] = CY;
     CY = b;
@@ -542,7 +542,7 @@
 :STOP is opcode=0x61; opcode=0xFD { stop(); }
 
 :ROLWC BC, 1 is opcode=0x61 & BC; opcode=0xFE {
-    b:1 = BC[15, 1];
+    local b:1 = BC[15, 1];
     BC = BC << 1;
     BC[0, 1] = CY;
     CY = b;
