@@ -87,15 +87,11 @@ SKIP_TARGET: loc is skip_mode=5 [ loc = inst_next + 5; ] {
     export *[ram]:3 loc;
 }
 
-is_sfr2: is bit16_8_9=0 & a16_bits_10_15=0 {}
-is_sfr2: is bit16_8_9=1 & a16_bits_10_15=0 {}
-is_sfr2: is bit16_8_9=2 & a16_bits_10_15=0 {}
-
-sfr_reg_byte: ext_sfr is ext_sfr & is_sfr2 {
+sfr_reg_byte: ext_sfr is ext_sfr & a16_bits_11_15=0 {
     export ext_sfr;
 }
 
-sfr_reg_word: ext_sfrw is ext_sfrw & is_sfr2 & bit16_0=0 {
+sfr_reg_word: ext_sfrw is ext_sfrw & a16_bits_11_15=0 & bit16_0=0 {
     export ext_sfrw;
 }
 
