@@ -67,26 +67,6 @@ SREG2_BYTE:^D is D & sreg_byte=5 { export D; }
 SREG2_BYTE:^L is L & sreg_byte=6 { export L; }
 SREG2_BYTE:^H is H & sreg_byte=7 { export H; }
 
-SKIP_TARGET: loc is skip_mode=1 [ loc = inst_next + 1; ] {
-    export *[ram]:3 loc;
-}
-
-SKIP_TARGET: loc is skip_mode=2 [ loc = inst_next + 2; ] {
-    export *[ram]:3 loc;
-}
-
-SKIP_TARGET: loc is skip_mode=3 [ loc = inst_next + 3; ] {
-    export *[ram]:3 loc;
-}
-
-SKIP_TARGET: loc is skip_mode=4 [ loc = inst_next + 4; ] {
-    export *[ram]:3 loc;
-}
-
-SKIP_TARGET: loc is skip_mode=5 [ loc = inst_next + 5; ] {
-    export *[ram]:3 loc;
-}
-
 is_sfr2: is bit16_8_9=0 & a16_bits_10_15=0 {}
 is_sfr2: is bit16_8_9=1 & a16_bits_10_15=0 {}
 is_sfr2: is bit16_8_9=2 & a16_bits_10_15=0 {}

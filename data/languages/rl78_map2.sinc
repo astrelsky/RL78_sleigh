@@ -265,11 +265,8 @@
     callt(0xB8:3);
 }
 
-:SKC is SKIP_TARGET & opcode=0x61; opcode=0xC8 {
-    if (CY) goto <skip>;
-    goto inst_next;
-    <skip>
-    goto SKIP_TARGET;
+:SKC is opcode=0x61; opcode=0xC8 {
+    if (CY) goto inst_next2;
 }
 
 :MOV A, AddrHLOffsetB is opcode=0x61 & A; opcode=0xC9 & AddrHLOffsetB {
@@ -342,11 +339,8 @@
     callt(0xBA:3);
 }
 
-:SKNC is SKIP_TARGET & opcode=0x61; opcode=0xD8 {
-    if (!CY) goto <skip>;
-    goto inst_next;
-    <skip>
-    goto SKIP_TARGET;
+:SKNC is opcode=0x61; opcode=0xD8 {
+    if (!CY) goto inst_next2;
 }
 
 :MOV AddrHLOffsetB, A is opcode=0x61 & A; opcode=0xD9 & AddrHLOffsetB {
@@ -404,11 +398,8 @@
     Z = A == 0;
 }
 
-:SKH is SKIP_TARGET & opcode=0x61; opcode=0xE3 {
-    if (Z | CY) goto <skip>;
-    goto inst_next;
-    <skip>
-    goto SKIP_TARGET;
+:SKH is opcode=0x61; opcode=0xE3 {
+    if (Z | CY) goto inst_next2;
 }
 
 :CALLT ["008Ch"] is opcode=0x81; opcode=0xE4 {
@@ -427,11 +418,8 @@
     callt(0xBC:3);
 }
 
-:SKZ is SKIP_TARGET & opcode=0x61; opcode=0xE8 {
-    if (Z) goto <skip>;
-    goto inst_next;
-    <skip>
-    goto SKIP_TARGET;
+:SKZ is opcode=0x61; opcode=0xE8 {
+    if (Z) goto inst_next2;
 }
 
 :MOV A, AddrHLOffsetC is opcode=0x61 & A; opcode=0xE9 & AddrHLOffsetC {
@@ -485,11 +473,8 @@
     Z = A == 0;
 }
 
-:SKNH is SKIP_TARGET & opcode=0x61; opcode=0xF3 {
-    if (!(Z | CY)) goto <skip>;
-    goto inst_next;
-    <skip>
-    goto SKIP_TARGET;
+:SKNH is opcode=0x61; opcode=0xF3 {
+    if (!(Z | CY)) goto inst_next2;
 }
 
 :CALLT ["008Eh"] is opcode=0x81; opcode=0xF4 {
@@ -508,11 +493,8 @@
     callt(0xBE:3);
 }
 
-:SKNZ is SKIP_TARGET & opcode=0x61; opcode=0xF8 {
-    if (!Z) goto <skip>;
-    goto inst_next;
-    <skip>
-    goto SKIP_TARGET;
+:SKNZ is opcode=0x61; opcode=0xF8 {
+    if (!Z) goto inst_next2;
 }
 
 :MOV AddrHLOffsetC, A is opcode=0x61 & A; opcode=0xF9 & AddrHLOffsetC {

@@ -26,13 +26,11 @@ define register offset=0xe0 size=1 [CY ISP0 ISP1 RBS0 AC RBS1 Z IE];
 
 # For storing processor context
 define register offset=0x80 size=4 contextreg;
-define register offset=0x84 size=1 skipflag;
 define register offset=0x85 size=1 bank;
 
 define context contextreg
     es_prefix=(0, 0) noflow
     rsb=(1,2)
-    skip_mode=(3,5) noflow
     bank_mode=(6,6);
 
 # CALL Table entries
