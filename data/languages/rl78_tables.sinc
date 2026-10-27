@@ -115,7 +115,9 @@ far_offset8: uaddr8 is uaddr8 {
     export *[const]:3 uaddr8;
 }
 
-saddr_val: val is uaddr8 [val = 0xFE00 + uaddr8;] { export *[const]:3 val; }
+# mapped to FFE20 .. FFF1F
+saddr_val: val is uaddr8 & (data > 0x1F) [val = 0xFE00 + uaddr8;] { export *[const]:3 val; }
+saddr_val: val is uaddr8 & (data < 0x20) [val = 0xFF00 + uaddr8;] { export *[const]:3 val; }
 
 saddr: uaddr8 is uaddr8 & saddr_val {
     export *[near]:1 saddr_val;
